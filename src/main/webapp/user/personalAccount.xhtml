@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition template="../commons/layout/layout.xhtml">
+
+	<ui:define name="title">
+		<h2>#{messages['title.management.personal.account']}</h2>
+	</ui:define>
+	<ui:param name="onLoadJS" value="$('#form\\:name').focus();" />
+	<ui:define name="content">
+			<div class="row">
+				<div class="col-lg-9">
+					<h:form id="form" styleClass="form-signin">					
+						<h:inputHidden id="csrf" value="#{personalAccountController.codeSecureAction}" rendered="#{personalAccountController.updateRandom}" />
+						<div class="header">
+							<h3>#{messages['personal.account.data']}</h3>
+						</div>
+						<div class="contentLogin">
+							
+							<div class="form-group">
+								<label>#{messages['user.name']}</label>
+								<div class="input-group">
+									<p:inputText id="name" value="#{personalAccountController.current.name}" title="#{messages['user.name']}" placeholder="#{messages['user.name']}" styleClass="form-control" />	
+									<span class="input-required-group"><p:message for="name" display="icon" /></span>							 	  
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label>#{messages['user.surname1']}</label>
+								<div class="input-group">
+									<p:inputText id="surname1" value="#{personalAccountController.current.surname1}" title="#{messages['user.surname1']}" placeholder="#{messages['user.surname1']}" styleClass="form-control" />	
+									<span class="input-required-group"><p:message for="surname1" display="icon" /></span>							 	  
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label>#{messages['user.surname2']}</label>
+								<div class="input-group">
+									<p:inputText id="surname2" value="#{personalAccountController.current.surname2}" title="#{messages['user.surname2']}" placeholder="#{messages['user.surname2']}" styleClass="form-control" />	
+									<span class="input-required-group"><p:message for="surname2" display="icon" /></span>							 	  
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label>#{messages['user.email']}</label>
+								<div class="input-group">
+									<p:inputText id="email" value="#{personalAccountController.current.email}" title="#{messages['user.email']}" placeholder="#{messages['user.email']}" styleClass="form-control" />	
+									<span class="input-required-group"><p:message for="email" display="icon" /></span>							 	  
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label>#{messages['user.telephone']}</label>
+								<div class="input-group">
+									<p:inputText id="telephone" value="#{personalAccountController.current.telephone}" title="#{messages['user.telephone']}" placeholder="#{messages['user.telephone']}" styleClass="form-control" />	
+									<span class="input-required-group"><p:message for="telephone" display="icon" /></span>							 	  
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label>#{messages['user.username']}</label>
+								<div class="input-group">
+									<p:inputText id="username" value="#{personalAccountController.current.username}" title="#{messages['user.username']}" placeholder="#{messages['user.username']}" styleClass="form-control" />	
+									<span class="input-required-group"><p:message for="username" display="icon" /></span>							 	  
+								</div>
+							</div>
+							
+						</div>
+						<div class="actions">
+							<p:commandButton icon="ui-icon-disk" styleClass="btn btn-success" action="#{personalAccountController.updateCurrent}" process="@form" update="form :globalMessages" value="#{messages['update']}"  />
+						</div>
+					</h:form>
+				</div>
+				
+				
+				<h:form id="formImage" enctype="multipart/form-data" >					
+					<h:inputHidden id="csrf" value="#{personalAccountController.codeSecureAction}" rendered="#{personalAccountController.updateRandom}" />
+					<div class="col-lg-3">
+						<p:graphicImage id="image" value="/servlet/images?nombre=#{personalAccountController.current.picture}" styleClass="img-thumbnail" />
+						
+						<p:fileUpload
+								fileUploadListener="#{personalAccountController.handleFileUpload}"
+								label="#{messages['upload']}"							
+								mode="advanced" 
+								update="image :globalMessages" 
+								auto="true" 
+								sizeLimit="100000"
+								allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+					</div>
+				</h:form>
+			</div>
+	
+	</ui:define>
+
+	<ui:define name="modalPanels">
+	</ui:define>
+
+	</ui:composition>
+
+</html>

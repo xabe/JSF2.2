@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+		
+
+	<p:dialog header="#{messages['import']}" widgetVar="importModal" resizable="false" modal="true">
+		<h:panelGroup id="displayImport" layout="block">
+			<h:form id="importForm" enctype="multipart/form-data">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<p:message for="message" display="text" />
+				</div>
+			
+				<h:inputHidden id="csrf" value="#{wsHistoryController.codeSecureAction}" rendered="#{wsHistoryController.updateRandom}" />
+				
+				<p:fileUpload 
+					fileUploadListener="#{wsHistoryController.handleFileUpload}"  
+            		mode="advanced"
+            		cancelLabel="#{messages['cancel']}"
+            		uploadLabel="#{messages['upload.label']}"
+            		label="#{messages['import.label']}"
+            		invalidFileMessage="#{messages['invalid.file']}"
+            		invalidSizeMessage="#{messages['invalid.size.file']}"            		
+            		oncomplete="statusDialog.hide();"
+            		update=":displayImport :form:tableData :globalMessages"    
+            		allowTypes="/(\.|\/)(csv)$/"/>
+				
+				
+				<h:commandLink title="#{messages['download.log']}" action="#{wsHistoryController.downloadImportLog}" >
+					<p:graphicImage url="/resources/images/log.png" />
+				</h:commandLink>	
+								
+			</h:form>
+		</h:panelGroup>
+	</p:dialog>
+</html>

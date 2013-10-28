@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<p:dialog header="#{messages['info']}" widgetVar="infoModal" resizable="false" modal="true">	
+		<h:panelGroup id="displayInfo" layout="block">		
+			<h:form id="infoForm">			
+				<p:panel>		
+					<h:panelGrid columns="2" style="margin-bottom:5px" cellpadding="5"> 					 		
+					 																<h:outputLabel value="#{messages['prueba.fecha']}:" />
+																	<h:outputLabel value="#{pruebaController.current.fecha}" >
+										<f:convertDateTime pattern="dd/MM/yyyy"/> 
+									</h:outputLabel>
+																																																	<h:outputLabel value="#{messages['prueba.nombre']}:" />
+																	<h:outputLabel value="#{pruebaController.current.nombre}" />
+																																				<h:outputLabel value="#{messages['prueba.numero']}:" />
+																	<h:outputLabel value="#{pruebaController.current.numero}" />
+																										</h:panelGrid>					
+					<f:facet name="footer">  
+						<p:commandButton icon="ui-icon-home" styleClass="button" onclick="infoModal.hide()" process="@this" update=":displayInfo :form:tableData :globalMessages" value="#{messages['close']}" />
+					</f:facet>				
+				</p:panel>				
+			</h:form>
+		</h:panelGroup>
+	</p:dialog>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	
+<ui:composition>
+	<sec:isAuthenticated>
+		<h:panelGroup layout="block" styleClass="nav bs-sidebar" rendered="#{sessionController.userLogged.validatePassword}">
+			<h:form id="menu">
+				<ul class="nav">
+					<sec:ifAllGranted roles="ROLE_SUPER_USUARIO">
+						<li><a>#{messages['menu.admin']}</a>
+							<ul class="nav">
+								<li class="">
+									<p:commandLink id="user" action="user" value="#{messages['management.user']}"  update=":globalContent :globalMessages" ></p:commandLink>
+								</li>
+								<li class="">
+									<p:commandLink id="group" action="group" value="#{messages['management.group']}" update=":globalContent :globalMessages" ></p:commandLink>
+								</li>
+								<li class="">
+									<p:commandLink id="permission" action="permission" value="#{messages['management.permission']}" update=":globalContent :globalMessages" ></p:commandLink>
+								</li>
+							</ul>
+						</li>
+					</sec:ifAllGranted>
+					<li><a>#{messages['menu.menu']}</a>
+						<ul class="nav">
+							<li>
+								<p:commandLink id="prueba" action="prueba" value="#{messages['management.prueba']}" update=":globalContent :globalMessages" ></p:commandLink>
+							</li>
+							<li>
+								<p:commandLink id="history" action="wshistory" value="#{messages['management.wshistory']}" update=":globalContent :globalMessages" ></p:commandLink>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</h:form>
+		</h:panelGroup>
+	</sec:isAuthenticated>
+</ui:composition>
+</html>

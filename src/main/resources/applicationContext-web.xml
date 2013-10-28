@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		 http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		 http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.0.xsd
+		 http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		 http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+	
+	<!-- Seguridad Para los servicios Rest  -->
+
+	<bean id="basicAuthenticationFilter"
+		class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
+	</bean>
+
+	<bean id="authenticationEntryPoint"
+		class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
+		<property name="realmName" value="Bienvenido a los Servicios Rest de last" />
+	</bean>
+
+	<sec:http pattern="/rest/**" create-session="stateless">
+		<sec:intercept-url pattern='/**' access='ROLE_ACCESO_SISTEMA' requires-channel="http" />
+    	<sec:http-basic entry-point-ref="authenticationEntryPoint"/>
+    	<sec:port-mappings>
+      		<sec:port-mapping http="8080" https="8443"/>
+      		<sec:port-mapping http="80" https="443"/>
+    	</sec:port-mappings>
+	</sec:http>
+
+	<!-- Seguridad Para la web -->
+    
+    <sec:http auto-config="true" create-session="always"  >
+			
+		<sec:form-login 
+			login-page="/commons/login.faces"
+			default-target-url="/commons/index.faces" 
+			always-use-default-target="true" 
+			authentication-failure-url="/commons/login.faces"
+			login-processing-url="/commons/j_spring_security_check" />
+    	
+    	
+		
+		<sec:intercept-url pattern="/commons/login.faces" 			 access="IS_AUTHENTICATED_ANONYMOUSLY" 						requires-channel="any"/>
+		<sec:intercept-url pattern="/commons/j_spring_security_check" access="IS_AUTHENTICATED_ANONYMOUSLY" 					requires-channel="any"/>
+
+		<sec:intercept-url pattern="/error/**" 						 access="IS_AUTHENTICATED_ANONYMOUSLY"  					requires-channel="any"/>
+		<sec:intercept-url pattern="/resources/**" 					 access="IS_AUTHENTICATED_ANONYMOUSLY"  					requires-channel="any"/>
+		<sec:intercept-url pattern="/javax.faces.resource/**" 		 access="IS_AUTHENTICATED_ANONYMOUSLY"  					requires-channel="any"/>
+		<sec:intercept-url pattern="/index.jsp" 					 access="IS_AUTHENTICATED_ANONYMOUSLY"  					requires-channel="any"/>
+		<sec:intercept-url pattern="/commons/rememberPassword.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"										/>
+		<sec:intercept-url pattern="/commons/registration.faces" 	 access="IS_AUTHENTICATED_ANONYMOUSLY"										/>
+		<sec:intercept-url pattern="/user/admin.faces"				 access="ROLE_SUPER_USUARIO" 								requires-channel="any"/>
+		<sec:intercept-url pattern="/group/admin.faces"			 	 access="ROLE_SUPER_USUARIO"  								requires-channel="any"/>
+		<sec:intercept-url pattern="/permission/admin.faces"		 access="ROLE_SUPER_USUARIO" 								requires-channel="any"/>
+		
+		<!-- CodeGen -->
+		<sec:intercept-url pattern="/wshistory/admin.faces"	access="ROLE_SUPER_USUARIO,ROLE_USUARIO"	requires-channel="http"/> 
+
+		<sec:intercept-url pattern="/prueba/admin.faces"	access="ROLE_SUPER_USUARIO,ROLE_USUARIO"	requires-channel="http"/> 
+
+		
+		
+
+		<sec:intercept-url pattern="/**"							access="ROLE_ACCESO_SISTEMA"								requires-channel="any"/>
+		
+		<sec:custom-filter ref="ajaxTimeoutRedirectFilter" after="EXCEPTION_TRANSLATION_FILTER"/>
+		
+		<sec:logout logout-url="/commons/logout.faces" invalidate-session="true" delete-cookies="JSESSIONID"  />
+		
+		<sec:access-denied-handler error-page="/error/error.faces"/>
+		
+		<sec:session-management invalid-session-url="/commons/login.faces"  session-authentication-error-url="/commons/login.faces" session-fixation-protection="migrateSession" >
+			<sec:concurrency-control  max-sessions="1" expired-url="/commons/login.faces" session-registry-ref="sessionRegistry" />
+		</sec:session-management>
+	
+	</sec:http>
+	
+	<bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+    
+    <sec:authentication-manager alias="authenticationManager" >
+    	<sec:authentication-provider user-service-ref="loginCheck" >
+    		<sec:password-encoder ref="passwordEncoder"></sec:password-encoder>
+   		 </sec:authentication-provider>
+    </sec:authentication-manager>
+
+	<bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<constructor-arg value="256" />
+	</bean>
+	
+	<!-- Filtro cuando se perdia la session se rederija a la pagina de login -->
+	
+	<bean id="ajaxTimeoutRedirectFilter" class="com.prueba.util.AjaxTimeoutRedirectFilter">
+    	<property name="customSessionExpiredErrorCode" value="901" />
+	</bean>
+
+</beans>

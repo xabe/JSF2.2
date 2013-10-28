@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	
+<ui:composition>
+		
+		<p:ajaxStatus styleClass="ajaxStatus">  
+    		<f:facet name="start">  
+       	 		<p:graphicImage value="/resources/images/loading.gif" />  
+    		</f:facet>    
+    		<f:facet name="complete">  
+        		<h:outputText value="" />  
+    		</f:facet>  
+		</p:ajaxStatus>
+		
+		<p:dialog header="#{messages['title.info.modal']}" widgetVar="technologiesModal" resizable="false" modal="true">		
+			<h:panelGroup id="technologiesModal" layout="block">	
+				<h:form>				
+						<ul class="list-group">
+							<li class="list-group-item">
+								#{applicationController.jsfImpl}</li>
+							<li class="list-group-item">
+								#{applicationController.primeFaces}</li>
+							<li class="list-group-item">
+								#{applicationController.primeFacesExt}</li>
+							<li class="list-group-item">
+								#{applicationController.buildTime}</li>
+						</ul>
+						<div class="panel-footer">
+							<p:commandButton icon="ui-icon-home" onclick="technologiesModal.hide()" process="@this" update=":technologiesModal" value="#{messages['close']}" />
+						</div>
+				</h:form>
+			</h:panelGroup>
+		</p:dialog>
+
+		<div id="userDiv" style="display: none;" >
+			<h:form id="langForm">
+				<label>#{messages['user.login']} :</label>
+				<h:outputLabel value="#{sessionController.userLogged.username}" styleClass="negrita" />
+				<br />
+				<h:outputLabel value="#{sessionController.date}">
+					<f:convertDateTime dateStyle="full" locale="#{sessionController.localeUse}" />
+				</h:outputLabel>
+				<ul>		
+					<li>	
+					<p:commandLink action="personalAccount">
+						<p:graphicImage title="#{messages['title.management.personal.account']}" value="/resources/images/administrator.png"  style="cursor:pointer"  /> 
+					</p:commandLink>
+					</li> 
+					<li>
+					<p:commandLink action="changePassword">
+						<p:graphicImage title="#{messages['change.password']}" value="/resources/images/changepassword.png" style="cursor:pointer" />  
+					</p:commandLink>
+					</li> 
+					<li>
+					<p:commandLink action="#{sessionController.logOut}">
+						<p:graphicImage title="#{messages['log.out']}" value="/resources/images/logout.png"  style="cursor:pointer" />
+					</p:commandLink>	
+					</li> 				
+				</ul>
+			</h:form>
+		</div>
+		
+</ui:composition>
+</html>

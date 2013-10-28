@@ -1,0 +1,246 @@
+
+.search-results li {
+    border-top: 1px solid #CCCCCC;
+    overflow: hidden;
+    padding: 2.2em 1em 1.5em 2.3em;
+    position: relative;
+}
+
+.search-results li:HOVER {
+    background-color: #0081c2;
+    background-image: linear-gradient(to bottom , #0088cc, #0077b3);
+    background-position: 0 center;
+    background-repeat:repeat-x;
+    color:#FFFFFF;
+    text-decoration: none;
+}
+
+.search-results li a {
+	text-decoration: none;
+}
+
+.search-results h3, .search-results h4  {
+   	margin: 0em 0em 0.5em 0em;
+}
+
+.search-results ul ul {
+    background: none repeat scroll 0 center rgba(0, 0, 0, 0);
+    border: 0 none;
+}
+
+.search-results li li {
+	border:0px;
+    display: inline-block;
+    font-size: 0.85em;
+    padding: 0 10px;
+}
+
+.container-pagination{
+	text-align: center;
+}
+
+.container-pagination li{
+	border:0px;
+}
+
+.container-pagination li:HOVER{
+	background: none;
+}
+
+.container-gototop{
+	font-family: 'Oswald','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 400;
+	font-size: 1.85em;
+	text-align: right;
+}
+
+.extra-info ul {
+	padding: 0px;
+}
+
+.even-row {
+	background-color: #D9D9D9;
+}
+
+.odd-row {
+	background-color: none;
+}
+
+.last-row{
+	border-bottom: 1px solid #CCCCCC;
+}
+
+table{
+	border-collapse: inherit;
+	border-spacing: 0.25em;
+}
+
+table td {
+	padding: 0.5em 0.5em 0 0;
+}
+
+table > tbody > tr > td > a:HOVER {
+	text-decoration: none;
+}
+
+.table_hidden {
+	border: 1px solid #DDDDDD;
+    margin-bottom: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+}
+
+.over {
+	background-color: #F3F3F3 !important;
+}
+
+.ui-datatable .ui-datatable-data .even-row {
+	background-color: #D9D9D9;
+}
+
+.ui-datatable .ui-datatable-data .odd-row {
+	background-color: none;
+}
+
+.widthAcctions {
+	min-width: 6em;
+}
+
+.widthAcctionsOneElement {
+	min-width: 4.5em;
+}
+
+.widthAcctionsTwoElement {
+	min-width: 7.1em;
+}
+
+.widthAcctionsThreeElement {
+	min-width: 9.6em;
+}
+
+.widthAcctionsSpecial {
+	min-width: 12em;
+}
+
+.ui-datatable .ui-datatable-data td, .ui-datatable .ui-datatable-data-empty td{
+	border-width: 1px 0px !important;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	border: 1px 0px solid #CCC !important;
+}
+
+/* Estilo de la imagen de info un elemento de la tabla  */
+
+.info {
+	width:28px;
+	height:28px;
+}
+
+.info_out {
+	display: inline-block;
+	background-image: url(#{resource['images/detail_grey.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+.info_over {
+	display: inline-block;
+	background-image: url(#{resource['images/detail.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+/* Estilo de la imagen de editar un elemento de la tabla  */
+
+.edit {
+	width:28px;
+	height:28px;
+}
+
+.edit_out {
+	display: inline-block;
+	background-image: url(#{resource['images/edit_grey.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+.edit_over {
+	display: inline-block;
+	background-image: url(#{resource['images/edit.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+/* Estilo de la imagen de eliminar un elemento de la tabla  */
+
+.delete {
+	width:28px;
+	height:28px;
+}
+
+.delete_out {
+	display: inline-block;
+	background-image: url(#{resource['images/trash_grey.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+.delete_over {
+	display: inline-block;
+	background-image: url(#{resource['images/trash.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+/* Estilo de la imagen de password un elemento de la tabla  */
+
+.password {
+	width:28px;
+	height:28px;
+}
+
+.password_out {
+	display: inline-block;
+	background-image: url(#{resource['images/keys_grey.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+.password_over {
+	display: inline-block;
+	background-image: url(#{resource['images/keys.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+/* Estilo de la imagen de editar grupo un elemento de la tabla  */
+
+.editGroup {
+	width:28px;
+	height:28px;
+}
+
+.editGroup_out {
+	display: inline-block;
+	background-image: url(#{resource['images/group_grey.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+.editGroup_over {
+	display: inline-block;
+	background-image: url(#{resource['images/group.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+/* Estilo de la imagen de editar grupo un elemento de la tabla  */
+
+.editPermission {
+	width:28px;
+	height:28px;
+}
+
+.editPermission_out {
+	display: inline-block;
+	background-image: url(#{resource['images/permission_grey.png']}) !important;
+	background-repeat: no-repeat !important;
+}
+
+.editPermission_over {
+	display: inline-block;
+	background-image: url(#{resource['images/permission.png']}) !important;
+	background-repeat: no-repeat !important;
+}

@@ -1,0 +1,373 @@
+
+
+body {
+    background-color: #F9F9F9;
+}
+
+ol, ul {
+    list-style-type: none;
+}
+
+.content {
+	margin-top: 3em;
+	margin-bottom: 5em;
+}
+
+.ajaxStatus {
+	width: 64px;
+	height: 64px;
+	position: fixed;
+	right: 5px;
+	bottom: 5px;
+	z-index: 5000;
+}
+
+.popover-content ul{
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+}
+
+.popover-content li{
+	display: inline-block;
+    overflow: hidden;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    position: relative;
+    text-align: center;
+}
+
+.ui-state-default .ui-icon-mail {
+	background-image: url(#{resource['images/mail.png']});
+}
+
+.center {
+     float: none;
+     margin: 0 auto;
+}
+
+.orientation_right{
+	float: right;
+	margin-right: 3.5em;
+}
+
+.orientation_left{
+	float: left;
+	margin-right: 3.5em;
+}
+
+.layoutMessages {
+	float: right;
+	position: fixed;
+	right: 2em;
+	z-index: 1200;
+	padding-right: 2em;
+	padding-top: 3em;
+}
+
+.input-group-sub-btn {
+	 padding: 6px 12px;
+}
+
+
+pre.prettyprint{
+    width: 400px;
+    overflow: auto;
+    height: 300px
+}
+
+/*#######################Inicio estilos info bottom #########################*/
+
+/*
+ * info at bottom.
+ */
+.ur-info-bottom {
+    color: #333333;
+    padding: 15px 0px;
+}
+
+.ur-info-bottom p {
+    color: #333333;
+    padding: 15px 0px;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 700;
+    border-bottom: 1px solid #808080;
+}
+
+.ur-info-bottom .ur-item {
+    text-align: center;
+    margin: 0px 10px;
+}
+.ur-info-bottom .ur-item i {
+    text-shadow: 4px 4px 0px #d3d3d3;
+    font-size: 5em;
+}
+.ur-info-bottom .ur-item h3 {
+    display: block;
+    font-size: 1.4em;
+    font-weight: 700;
+    text-shadow: 2px 2px 0px #d3d3d3;
+    text-transform: uppercase;
+    border-bottom: 1px solid #808080;
+    padding-bottom: 7px;
+}
+
+/*#######################Fin  estilos info bottom #########################*/
+
+/*#######################Estilos de la pagina de login#########################*/
+
+.form-signin {
+    background-color: #F8F9F4;
+    background-image: linear-gradient(#F8F9F4, #FFFFFF);
+    border: medium none;
+    border-radius: 0 0 0 0;
+    box-shadow: 0 1px 4px 1px #B4B6A9, 2px 2px 1px 0 #FFFFFF inset;
+    margin-bottom: 15px;    
+}
+
+.form-signin h1, h3 {
+    font-family: 'Oswald','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 400;
+}
+
+.form-signin.extra-margin {
+    margin: 50px 0;
+}
+
+.form-signin .messages {
+    margin: 10px;
+}
+
+.form-signin .header {
+    border-bottom: 1px solid #CFD1C6;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+.form-signin .header h3 {
+    color: #333333;
+    font-size: 2em;
+    font-weight: 300;
+    margin: 0;
+    padding: 10px 15px 0;
+    text-transform: capitalize;
+}
+
+.form-signin label {
+    color: #333333;
+    font-size: 1.2em;
+    font-weight: bold;
+    display: block;
+    line-height: 20px;
+    margin-bottom: 5px;
+    padding-top: 10px;
+}
+
+.form-signin .input-prepend .add-on {
+    height: 21px;
+    padding-top: 5px;
+}
+
+.form-signin .contentLogin {
+    padding-left: 15px;   
+    padding-right: 15px;    
+}
+
+.form-signin .actions {
+    background-color: #F5F5F5;
+    border-top: 1px solid #DDDDDD;
+    box-shadow: 0 1px 0 #FFFFFF inset;
+    margin-top: 20px;
+    min-height: 25px;
+    padding: 15px;    
+}
+
+.extra-margin-left {
+	padding: 10px 15px 0;
+}
+
+.input-required-group{
+    border: 0px;
+   	font-family: 'Oswald','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    padding-left:5px;
+    padding-right:5px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 1%;
+    display: table-cell;
+}
+
+
+
+/*#######################Fin de la pagina de login #########################*/
+
+/*#######################Estilos de la pagina de menu #########################*/
+
+.bs-sidenav{ 
+	background-color: #F7F5FA;
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+@media screen and (min-width: 1170px) {
+	.bs-sidebar .nav > .active > ul {
+    	display: block;
+	}
+	.bs-sidebar {
+    	width: 213px;
+    	position: fixed;
+    	top: 80px;
+	}
+}
+
+.active > a, .active:hover > a, .active:focus > a {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-right: 2px solid #999999;
+    border-bottom: 2px solid #999999;
+    color: #000080;
+    font-weight: bold;
+}
+
+/*#######################Fin de la pagina de menu #########################*/
+
+/*#######################Estilos de la cabecera de pagina#########################*/
+
+header {
+ 	background-color: #C0C0C0;
+    background-image: -moz-linear-gradient(center bottom , #C0C0C0 0%, #D9D9D9 100%);
+    background-repeat: repeat-x;
+    border-bottom: 3px solid #999999;
+    border-top: 3px solid #999999;
+    box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.2);
+   	top: 0;
+    z-index: 500;
+    position: fixed;
+    width: 100%;
+}
+
+header #logo, header #title {
+	display: inline-block;
+    vertical-align: top;
+}
+
+#logo {
+    width: 15%;
+    padding: 0 auto;
+}
+
+.logo{
+	font-size: 1.5em;
+}
+
+#title {
+
+}
+
+#title img {
+	padding: 0.2em;
+	text-align: justify;
+}
+
+#title .account_user {
+    display: inline-block;
+    height: 30px;
+    outline: medium none;
+    width: 30px;
+    text-decoration: none;
+}
+
+
+/*#######################Fin de la cabecera de pagina#########################*/
+
+/*#######################Estilos del pie de pagina#########################*/
+
+footer {
+	background: none repeat scroll 0 0 #D9D9D9;
+    border-top: 3px solid #999999;
+    color: #00000;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-align: center;
+    position:fixed;
+    width: 100%;
+    bottom:0;
+}
+
+footer a {
+	margin: 1em;
+    color: black;
+}
+
+footer a:hover, footer a:focus {
+    color: #00000;
+    text-decoration: underline;
+}
+
+footer ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+footer li {
+    display: inline-block;
+    font-size: 0.85em;
+    padding: 0px 10px;
+}
+
+/*#######################Fin estilos del pie de pagina#########################*/
+
+/*#######################Estilos pagina de error#########################*/
+
+.headerProjectTitle, .loginProjectTitle {
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	font-weight: normal; 
+	font-size: 25px;	
+}
+
+.headerProjectTitle {
+	color: rgb(09,79,164);
+	margin-left: 0.5em;
+	vertical-align: super
+}
+
+.columnGridDeleteLeft { 
+	padding-right: 15px;
+}
+
+.columnGridDeleteRigth { 
+	vertical-align: top;
+}
+
+.link, .link:VISITED  { 
+	color: #1B6AB8;
+}
+
+.link:HOVER { 
+	color: #7890ab;
+}
+
+/*#######################Fin estilos pagina de error#########################*/
+
+/*#######################Bug de primefaces#########################*/
+.btn {
+    padding: 0px;
+}
+
+.ui-button {
+    margin-right: 0px;
+}
+
+.ui-message-icon-only, .ui-message-info, .ui-message-error, .ui-message-warn, .ui-message-fatal {
+    margin: 0px;
+    padding: 0px;
+}
+
+/*####################### Fin Bug de primefaces#########################*/

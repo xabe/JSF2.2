@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="../commons/layout/layoutError.xhtml">
+
+	<ui:define name="title">
+		<h2>#{messages['error.title']}</h2>
+	</ui:define>
+	
+	<ui:param name="onLoadJS" value="" />
+	
+	<ui:define name="content">
+		<br />
+		<br />
+						
+			<h:panelGrid columns="2" cellpadding="0" cellspacing="0" columnClasses="columnGridDeleteLeft, columnGridDeleteRigth" style="margin-top: 10px">
+				<h:graphicImage value="/resources/images//error-sign-tr.png" style="border: 0; width: 60px; margin-top: 50px" />
+			
+				<h:panelGroup>
+					<h:outputText value="#{messages['welcome']}" styleClass="headerProjectTitle" style="margin-left: 0" />
+					<h:outputText value="1.0" styleClass="headerProjectTitle" style="font-size: 14px" />
+				
+					<p style="border-bottom: 1px solid grey; padding-bottom: 10px; margin-bottom: 10px; margin-top: 40px">
+						<h:outputText value="#{messages['error.header']}" style="font-weight: bold; font-size: 18px" />
+					</p>					
+					<br />
+					
+					<h:outputText value="#{messages['error.text.page']}" style="font-size: 16px" />
+					<br /><br /> 
+					
+					<h:outputText escape="false" value="#{messages['error.message.page']}" style="font-size: 16px" />
+					<br /> <br /><br />
+					
+					<h:outputText value="#{messages['detail']}" style="font-weight: bold" />
+					<br /> <br />
+					
+					<h:form>				
+						<div class="layoutCenterTableManagerContent">	
+							<ul id="errorList">
+								<li>
+									<h:outputText value="#{messages['error.date']}: " style="font-weight: bold"/> <h:outputText value="#{errorController.fecha}" />
+								</li>
+								<li>
+									<h:outputText value="#{messages['error.action']}: " style="font-weight: bold"/> <h:outputText value="#{errorController.accion}" />
+								</li>
+								<li>
+									<h:outputText value="#{messages['error.exception']}: " style="font-weight: bold"/> <h:outputText value="#{errorController.exception}" />
+								</li>
+								<li>
+									<h:outputText value="#{messages['error.message']}: " style="font-weight: bold"/> <h:outputText value="#{errorController.mensaje}" />
+								</li>
+								<li>
+									<h:outputText value="#{messages['error.status']}: "  style="font-weight: bold"/> <h:outputText value="#{requestScope['javax.servlet.error.status_code']}" />
+								</li>
+							</ul>
+						</div>
+						<br /> <br />
+
+						<h:outputLink value="#{errorController.previousURL}" styleClass="link" style="font-size: 16px">
+							<h:outputText value="#{messages['error.back']}" />
+			        	</h:outputLink>
+			        	
+					</h:form>			
+				</h:panelGroup>
+			</h:panelGrid>				
+			<br />
+	</ui:define>
+
+	<ui:define name="modalPanels">
+	</ui:define>
+	
+</ui:composition>
+</html>
+
+
+
+
+

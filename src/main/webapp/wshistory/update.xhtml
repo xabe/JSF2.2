@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+	
+	<p:dialog header="#{messages['edit']}" widgetVar="updateModal" resizable="false" modal="true">		
+		<h:panelGroup id="displayUpdate" layout="block">		
+			<h:form id="editForm">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<p:message for="message" display="text" />
+				</div>
+				
+				<h:inputHidden id="csrf" value="#{wsHistoryController.codeSecureAction}" rendered="#{wsHistoryController.updateRandom}" />
+				
+				<p:panel>
+
+					<h:panelGrid columns="3" style="margin-bottom:5px" cellpadding="5">  	
+																																		<h:outputLabel value="#{messages['wshistory.ip']}:" />
+																	<p:inputText id="ip" value="#{wsHistoryController.current.ip}" title="#{messages['wshistory.ip']}" />								
+																<p:message for="ip" display="icon" />
+																												<h:outputLabel value="#{messages['wshistory.numberofelements']}:" />
+																	<p:inputText id="numberofelements" value="#{wsHistoryController.current.numberofelements}" title="#{messages['wshistory.numberofelements']}" />								
+																<p:message for="numberofelements" display="icon" />
+																												<h:outputLabel value="#{messages['wshistory.responseformat']}:" />
+																	<p:inputText id="responseformat" value="#{wsHistoryController.current.responseformat}" title="#{messages['wshistory.responseformat']}" />								
+																<p:message for="responseformat" display="icon" />
+																												<h:outputLabel value="#{messages['wshistory.service']}:" />
+																	<p:inputText id="service" value="#{wsHistoryController.current.service}" title="#{messages['wshistory.service']}" />								
+																<p:message for="service" display="icon" />
+																												<h:outputLabel value="#{messages['wshistory.servicename']}:" />
+																	<p:inputText id="servicename" value="#{wsHistoryController.current.servicename}" title="#{messages['wshistory.servicename']}" />								
+																<p:message for="servicename" display="icon" />
+																												<h:outputLabel value="#{messages['wshistory.servicerequestdate']}:" />
+																	<p:calendar showOn="button" id="servicerequestdate" value="#{wsHistoryController.current.servicerequestdate}" title="#{messages['wshistory.servicerequestdate']}" />
+																<p:message for="servicerequestdate" display="icon" />
+																												<h:outputLabel value="#{messages['wshistory.userid']}:" />
+																	<p:inputText id="userid" value="#{wsHistoryController.current.userid}" title="#{messages['wshistory.userid']}" />								
+																<p:message for="userid" display="icon" />
+																												<h:outputLabel value="#{messages['wshistory.username']}:" />
+																	<p:inputText id="username" value="#{wsHistoryController.current.username}" title="#{messages['wshistory.username']}" />								
+																<p:message for="username" display="icon" />
+																		</h:panelGrid>
+					
+					<f:facet name="footer">
+						<p:commandButton icon="ui-icon-arrowrefresh-1-w" action="#{wsHistoryController.updateCurrent}" process="@form" update=":form:tableData :globalMessages :displayUpdate" value="#{messages['update']}"  />
+						<p:commandButton icon="ui-icon-home" onclick="updateModal.hide()" process="@this" update=":form:tableData :globalMessages :displayUpdate" value="#{messages['close']}" />
+					</f:facet>
+					
+				</p:panel>
+			</h:form>	
+		</h:panelGroup>
+	</p:dialog>
+</html>

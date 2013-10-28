@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition template="../commons/layout/layout.xhtml">
+
+	<ui:define name="title">
+		<h2>#{messages['title.management.user']}</h2>
+	</ui:define>
+	<ui:define name="headerPage" >	
+		<h:outputStylesheet name="css/table.css" />	
+	</ui:define>
+	<ui:define name="footerPage" >
+		<h:outputScript name="js/table.js" />		
+	</ui:define>
+	<ui:param name="onLoadJS" value="$('#form\\\:text').focus();activeMenu('user');" />
+	<ui:define name="content">
+
+		<h:form id="form">
+			<div class="row">	
+			  <div class="col-lg-12">
+			  
+				<h3 class="text-left">#{messages['search']}</h3>
+			
+				<label>#{messages['search']} #{messages['wildcard']} :</label>
+				
+				<div class="input-group">
+	            	<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>	                            	
+	                
+	                <p:inputText  id="text" styleClass="form-control" value="#{userController.search.text}"  placeholder="#{messages['search']}..." title="#{messages['search']}" />	
+	               	
+	               	<h:outputLabel styleClass="input-required-group" value=" #{messages['in']} " />
+	               	
+	               	<h:selectOneMenu styleClass="form-control" value="#{userController.search.criteriaSelection}">
+						<f:selectItems value="#{userController.search.fields}" />
+					</h:selectOneMenu>
+	
+					<div class="input-group-btn">					
+						<p:commandButton icon="ui-icon-search" styleClass="btn btn-default" style="padding: 0.08em;" action="#{userController.findSearch}" title="#{messages['search']}" update="tableData :globalMessages" />
+	
+						<p:commandButton icon="ui-icon-arrowrefresh-1-w" styleClass="btn btn-default" style="padding: 0.08em;" title=" #{messages['clean']}" update="text :globalMessages" process="@this">
+							<f:setPropertyActionListener value="" target="#{userController.search.text}" />
+						</p:commandButton>
+					</div>
+	            </div>	
+			
+			
+				<h3 class="text-left">Acciones</h3>
+			
+				<div class="btn-group">  	
+					
+					<p:commandButton 
+						icon="ui-icon-arrowreturnthick-1-e" 
+						styleClass="btn btn-default"
+						action="#{userController.getAll}" 
+						value="#{messages['list.all']}"
+						title="#{messages['list.all']}" 
+						update="tableData :globalMessages" />
+						
+					<p:commandButton 
+						icon="ui-icon-check" 
+						styleClass="btn btn-default"
+						action="#{userController.showUserlogged}" 
+						value="#{messages['managedUser']}"
+						title="#{messages['managedUser']}"
+						update=":displayLogged :globalMessages"
+						oncomplete="loggedModal.show()"  />
+						
+					<p:commandButton 
+						icon="ui-icon-plus" 
+						styleClass="btn btn-default"
+						action="#{userController.create}" 
+						value="#{messages['new']}"
+						title="#{messages['new']}"
+						update=":displayNew :globalMessages"
+						oncomplete="newModal.show()"  />
+					
+					<p:commandButton 
+						icon="ui-icon-arrowstop-1-n" 
+						styleClass="btn btn-default"
+						action="#{userController.generateRandom}" 
+						value="#{messages['import']}"
+						title="#{messages['import']}"
+						update=":displayImport :globalMessages"
+						oncomplete="importModal.show()"  />
+						
+					<p:commandButton 
+						icon="ui-icon-arrowstop-1-s" 
+						styleClass="btn btn-default"
+						id="popoverDownload" 
+						value="#{messages['download']}" />
+				
+				</div>	
+				
+				<h3 class="text-left">Resultados</h3>
+				<h:panelGroup id="tableData" layout="block" styleClass="search-results">
+					<ul>
+						<ui:repeat var="item" value="#{userController.users}" varStatus="loop" >
+							<li class="#{loop.index % 2 == 0 ? 'even-row' : 'odd-row'} #{loop.last ? 'last-row' : ''}">
+								<div class="principal row">
+									<div class="col-md-8">
+										<h3>#{messages['user.name']}: </h3>
+										<h4>#{item.name}</h4>
+									</div>
+									<div class="col-md-4">
+										
+										<p:commandLink
+											id="info"
+											action="#{userController.generateRandom}"
+											update=":displayInfo :globalMessages"
+											oncomplete="infoModal.show()"
+											title="#{messages['info']}"
+											process="@this">
+											<div class="info info_out" />							
+											<f:setPropertyActionListener value="#{item}" target="#{userController.current}" />
+										</p:commandLink>
+	
+	
+										<p:commandLink
+												id="edit"
+												action="#{userController.generateRandom}"
+												update=":displayUpdate :globalMessages"
+												oncomplete="updateModal.show()"
+												title="#{messages['edit']}"
+												process="@this">
+												<div class="edit edit_out" />					
+												<f:setPropertyActionListener value="#{item}" target="#{userController.current}" />
+										</p:commandLink>
+					
+					
+										<p:commandLink 
+												id="delete"
+												action="#{userController.generateRandom}"
+												update=":displayDelete :globalMessages"
+												oncomplete="deleteModal.show()"
+												title="#{messages['delete']}"
+												process="@this">
+												<div class="delete delete_out" />			
+												<f:setPropertyActionListener value="#{item}" target="#{userController.current}" />
+										</p:commandLink>
+					
+					
+										<p:commandLink
+												id="password"
+												action="#{userController.generateRandom}"
+												update=":displayPassword :globalMessages"
+												oncomplete="passwordModal.show()"
+												title="#{messages['user.generater.password']}" 
+												process="@this">
+												<div class="password password_out" />		
+												<f:setPropertyActionListener value="#{item}" target="#{userController.current}" />
+										</p:commandLink>
+					
+					
+										<p:commandLink
+												id="editGroup"
+												action="#{userController.editGroupUser}"
+												update=":displayUserGroup :globalMessages"
+												oncomplete="userGroupModal.show();"
+												title="#{messages['user.users']}" 
+												process="@this">
+												<div class="editGroup editGroup_out" />		
+												<f:setPropertyActionListener value="#{item}" target="#{userController.current}" />											
+										</p:commandLink>
+									
+									</div>
+								</div>
+								<div class="extra-info">
+										<ul>
+											<li>
+												#{item.name}
+											</li>
+											<li>
+												#{item.surname1}
+											</li>
+											<li>
+												#{item.surname2}
+											</li>
+											<li>
+												#{item.email}
+											</li>
+										</ul>
+								</div>
+							</li>
+						</ui:repeat>
+					</ul>
+					<h:panelGroup layout="block" rendered="#{userController.size gt 0}">
+						<div class="container-gototop">
+							<a id="goToTop" style="cursor: pointer;" onclick="toTop();">Subir</a>
+						</div>		
+						<div class="container-pagination">
+							<ul class="pagination">
+	  							<li  class="#{userController.paginationContext.currentPage == 1 ? 'disabled' : ''}" ><p:commandLink action="#{userController.getPrevious}" update="tableData :globalMessages" oncomplete="toTop();">&#171;</p:commandLink></li>
+	  							<li><p:commandLink>#{userController.paginationContext.currentPage}/#{userController.paginationContext.totalPages}</p:commandLink></li>
+					  			<li class="#{userController.paginationContext.currentPage == userController.paginationContext.totalPages ? 'disabled' : ''}" ><p:commandLink action="#{userController.getNext}" update="tableData :globalMessages" oncomplete="toTop();" >&#187;</p:commandLink></li>
+							</ul>
+						</div>
+					</h:panelGroup>
+				</h:panelGroup>				
+			</div>			
+		</div>
+					
+		</h:form>
+		
+		<div id="downloadDiv" style="display: none;" >
+			<h:form>
+				<ul>
+					<li>
+					<h:commandLink action="#{userController.exportXls}">  
+            			<p:graphicImage url="/resources/images/excel.png" />  
+        			</h:commandLink>
+        			</li>  
+  					<li>
+        			<h:commandLink action="#{userController.exportPdf}">  
+            			<p:graphicImage url="/resources/images/pdf.png" />  
+        			</h:commandLink> 
+        			</li> 
+          			<li>
+        			<h:commandLink action="#{userController.exportCsv}">  
+            			<p:graphicImage url="/resources/images/csv.png" />  
+        			</h:commandLink>  
+        			</li>
+          			<li>
+        			<h:commandLink action="#{userController.exportXml}">  
+            			<p:graphicImage url="/resources/images/xml.png" />  
+        			</h:commandLink>
+        			</li>
+        		</ul>
+        	</h:form>  
+		</div>
+		
+		
+	</ui:define>
+
+	<ui:define name="modalPanels">
+		<ui:include src="info.xhtml" />
+		<ui:include src="logged.xhtml" />
+		<ui:include src="add.xhtml" />
+		<ui:include src="update.xhtml" />
+		<ui:include src="delete.xhtml" />
+		<ui:include src="import.xhtml" />
+		<ui:include src="generatePassword.xhtml" />
+		<ui:include src="editUserGroup.xhtml" />
+	</ui:define>
+
+	</ui:composition>
+
+</html>

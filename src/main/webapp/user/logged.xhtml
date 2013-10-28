@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+
+<p:dialog header="#{messages['managedUser']}" widgetVar="loggedModal"
+	resizable="false" modal="true">
+	<h:panelGroup id="displayLogged" layout="block">
+		<h:form id="loggedForm">
+
+			<div class="modalMessageContainer">
+				<h:inputHidden id="message" />
+				<p:message for="message" display="text" />
+			</div>
+
+			<h:inputHidden id="csrf" value="#{userController.codeSecureAction}"
+				rendered="#{userController.updateRandom}" />
+
+			<p:panel>
+
+				<p:dataTable 
+					id="dataTableLog" 
+					var="item" 
+					value="#{userController.userLoggeds}"
+					currentPageReportTemplate="{currentPage} / {totalPages}"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"  
+					paginatorAlwaysVisible="true"
+					editable="false"
+					paginatorPosition="bottom"				
+					rowIndexVar="rowIx"
+         			rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"			
+					paginator="true"
+					rows="#{userController.maxRowsTable}"
+					emptyMessage="#{messages['empty.table']}"
+					styleClass="adminTableResults" >
+					<f:facet name="header">
+						<h:outputLabel value="#{messages['table.user']}" />
+					</f:facet>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="#{messages['user.username']}" />
+						</f:facet>
+						<h:outputLabel value="#{item.user.username}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="#{messages['date']}" />
+						</f:facet>
+						<h:outputLabel value="#{item.user.dateLastLogin}">
+							<f:convertDateTime pattern="#{sessionController.formatoFecha}" locale="#{sessionController.locale}" timeZone="#{sessionController.timeZone}" />
+						</h:outputLabel>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="" />
+						</f:facet>
+						<p:commandLink
+							id="remove"
+							action="#{userController.disbleSession}"
+							update=":globalMessages :displayLogged"
+							title="#{messages['disableSession']}"
+							process="@this">
+							<div class="delete delete_out" />						
+							<f:setPropertyActionListener value="#{item.user.username}" target="#{userController.removeUser}" />
+						</p:commandLink>
+						
+					</p:column>
+				</p:dataTable>
+
+				<f:facet name="footer">
+					<p:commandButton icon="ui-icon-home" onclick="loggedModal.hide()"
+						process="@this"
+						update=":displayLogged :form:tableData :globalMessages"
+						value="#{messages['close']}" />
+				</f:facet>
+
+			</p:panel>
+
+		</h:form>
+
+	</h:panelGroup>
+</p:dialog>
+</html>

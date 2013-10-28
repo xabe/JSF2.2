@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition template="../commons/layout/layout.xhtml">
+
+	<ui:define name="title">
+		<h2>#{messages['title.management.wsHistory']}</h2>
+	</ui:define>
+	<ui:define name="headerPage">
+		<h:outputStylesheet name="css/table.css" />
+		<h:outputStylesheet name="css/prettify.css" />
+	</ui:define>
+	<ui:define name="footerPage">
+		<h:outputScript name="js/vkbeautify.js" />
+		<h:outputScript name="js/prettify.js" />
+		<h:outputScript name="js/table.js" />
+	</ui:define>
+	<ui:param name="onLoadJS"
+		value="$('#form\\\:text').focus();activeMenu('history');$('.ui-datatable-tablewrapper').addClass('table_hidden');" />
+	<ui:define name="content">
+
+		<ui:param name="root" value="#{wsHistoryController.url}" />
+
+		<h:form id="form">
+			<div class="row">	
+				<div class="col-lg-12">
+				
+					<h3 class="text-left">#{messages['search']}</h3>
+			
+					<label>#{messages['search']} #{messages['wildcard']} :</label>
+					
+					<div class="input-group">
+		            	<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>	                            	
+		                
+		                <p:inputText  id="text" styleClass="form-control" value="#{wsHistoryController.search.text}"  placeholder="#{messages['search']}..." title="#{messages['search']}" />	
+		               	
+		               	<h:outputLabel styleClass="input-required-group" value=" #{messages['in']} " />
+		               	
+		               	<h:selectOneMenu styleClass="form-control" value="#{wsHistoryController.search.criteriaSelection}">
+							<f:selectItems value="#{wsHistoryController.search.fields}" />
+						</h:selectOneMenu>
+		
+						<div class="input-group-btn">					
+							<p:commandButton icon="ui-icon-search" styleClass="btn btn-default" style="padding: 0.08em;" action="#{wsHistoryController.findSearch}" title="#{messages['search']}" update="tableData :globalMessages" />
+		
+							<p:commandButton icon="ui-icon-arrowrefresh-1-w" styleClass="btn btn-default" style="padding: 0.08em;" title=" #{messages['clean']}" update="text :globalMessages" process="@this">
+								<f:setPropertyActionListener value="" target="#{wsHistoryController.search.text}" />
+							</p:commandButton>
+						</div>
+		            </div>	
+		            
+		            <h3 class="text-left">Acciones</h3>
+			
+					<div class="btn-group">  	
+						
+						<p:commandButton 
+							icon="ui-icon-arrowreturnthick-1-e" 
+							styleClass="btn btn-default"
+							action="#{wsHistoryController.getAll}" 
+							value="#{messages['list.all']}"
+							title="#{messages['list.all']}" 
+							update="tableData :globalMessages" />
+							
+						<p:commandButton 
+							icon="ui-icon-plus" 
+							styleClass="btn btn-default"
+							action="#{wsHistoryController.create}" 
+							value="#{messages['new']}"
+							title="#{messages['new']}"
+							update=":displayNew :globalMessages"
+							oncomplete="newModal.show()"  />
+						
+						<p:commandButton 
+							icon="ui-icon-arrowstop-1-n" 
+							styleClass="btn btn-default"
+							action="#{wsHistoryController.generateRandom}" 
+							value="#{messages['import']}"
+							title="#{messages['import']}"
+							update=":displayImport :globalMessages"
+							oncomplete="importModal.show()"  />
+							
+						<p:commandButton 
+							icon="ui-icon-arrowstop-1-s" 
+							styleClass="btn btn-default"
+							id="popoverDownload" 
+							value="#{messages['download']}" />
+					
+					</div>	
+					
+					<h3 class="text-left">Resultados</h3>
+					
+					
+						<p:dataTable 
+							id="tableData" 
+							value="#{wsHistoryController.dataModel}"
+							var="item" lazy="true"
+							currentPageReportTemplate="{currentPage} / {totalPages}"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							paginatorAlwaysVisible="true" editable="false"
+							paginatorPosition="bottom" rowIndexVar="rowIx"
+							rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+							paginator="true" rows="#{wsHistoryController.maxRowsTable}"
+							emptyMessage="#{messages['empty.table']}">
+
+							<f:facet name="header">
+								<h:outputLabel value="#{messages['table.wsHistorys']}" />
+							</f:facet>
+			
+							<p:column headerText="#{messages['wshistory.ip']}:"
+								sortBy="#{item.ip}" filterBy="#{item.ip}">
+								<h:outputLabel value="#{item.ip}" />
+							</p:column>
+							
+							<p:column headerText="#{messages['wshistory.numberofelements']}:"
+								sortBy="#{item.numberofelements}"
+								filterBy="#{item.numberofelements}">
+								<h:outputLabel value="#{item.numberofelements}" />
+							</p:column>
+							
+							<p:column headerText="#{messages['wshistory.responseformat']}:"
+								sortBy="#{item.responseformat}" filterBy="#{item.responseformat}">
+								<h:outputLabel value="#{item.responseformat}" />
+							</p:column>
+							
+							<p:column headerText="#{messages['wshistory.service']}:"
+								sortBy="#{item.service}" filterBy="#{item.service}">
+								<h:outputLabel value="#{item.service}" />
+							</p:column>
+							
+							<p:column headerText="#{messages['wshistory.servicename']}:"
+								sortBy="#{item.servicename}" filterBy="#{item.servicename}">
+								<h:outputLabel value="#{item.servicename}" />
+							</p:column>
+							
+							<p:column headerText="#{messages['wshistory.servicerequestdate']}:"
+								sortBy="#{item.servicerequestdate}"
+								filterBy="#{item.servicerequestdate}">
+								<h:outputLabel value="#{item.servicerequestdate}">
+									<f:convertDateTime pattern="dd/MM/yyyy"
+										locale="#{sessionController.localeUse}" />
+								</h:outputLabel>
+							</p:column>
+							
+							<p:column headerText="#{messages['wshistory.userid']}:"
+								sortBy="#{item.userid}" filterBy="#{item.userid}">
+								<h:outputLabel value="#{item.userid}" />
+							</p:column>
+							
+							<p:column headerText="#{messages['wshistory.username']}:"
+								sortBy="#{item.username}" filterBy="#{item.username}">
+								<h:outputLabel value="#{item.username}" />
+							</p:column>
+			
+							<p:column styleClass="widthAcctionsThreeElement">
+			
+								<f:facet name="header">
+									<h:outputLabel value="" />
+								</f:facet>
+			
+								<p:commandLink id="info" action="#{wsHistoryController.generateRandom}"
+									update=":displayInfo :globalMessages"
+									oncomplete="infoModal.show()" title="#{messages['info']}"
+									process="@this">
+									<div class="info info_out" />
+									<f:setPropertyActionListener value="#{item}"
+										target="#{wsHistoryController.current}" />
+								</p:commandLink>
+			
+			
+								<p:commandLink action="#{wsHistoryController.generateRandom}"
+									update=":displayUpdate :globalMessages"
+									oncomplete="updateModal.show()" title="#{messages['edit']}"
+									process="@this">
+									<div class="edit edit_out" />
+									<f:setPropertyActionListener value="#{item}"
+										target="#{wsHistoryController.current}" />
+								</p:commandLink>
+			
+			
+								<p:commandLink action="#{wsHistoryController.generateRandom}"
+									update=":displayDelete :globalMessages"
+									oncomplete="deleteModal.show()" title="#{messages['delete']}"
+									process="@this">
+									<div class="delete delete_out" />
+									<f:setPropertyActionListener value="#{item}"
+										target="#{wsHistoryController.current}" />
+								</p:commandLink>
+			
+							</p:column>
+			
+						</p:dataTable>
+				</div>
+			</div>
+		</h:form>
+
+		<div id="downloadDiv" style="display: none;">
+			<h:form>
+				<ul>
+					<li>
+					<h:commandLink action="#{wsHistoryController.exportXls}">  
+            			<p:graphicImage url="/resources/images/excel.png" />  
+        			</h:commandLink>
+        			</li>  
+  					<li>
+        			<h:commandLink action="#{wsHistoryController.exportPdf}">  
+            			<p:graphicImage url="/resources/images/pdf.png" />  
+        			</h:commandLink> 
+        			</li> 
+          			<li>
+        			<h:commandLink action="#{wsHistoryController.exportCsv}">  
+            			<p:graphicImage url="/resources/images/csv.png" />  
+        			</h:commandLink>  
+        			</li>
+          			<li>
+        			<h:commandLink action="#{wsHistoryController.exportXml}">  
+            			<p:graphicImage url="/resources/images/xml.png" />  
+        			</h:commandLink>
+        			</li>
+        		</ul>
+			</h:form>
+		</div>
+	</ui:define>
+
+	<ui:define name="modalPanels">
+		<ui:include src="info.xhtml" />
+		<ui:include src="add.xhtml" />
+		<ui:include src="update.xhtml" />
+		<ui:include src="delete.xhtml" />
+		<ui:include src="import.xhtml" />
+		<ui:include src="rest.xhtml" />
+	</ui:define>
+
+</ui:composition>
+
+</html>

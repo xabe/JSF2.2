@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+	<p:dialog header="#{messages['delete']}" widgetVar="deleteModal" resizable="false" modal="true">		
+		<h:panelGroup id="displayDelete" layout="block">
+			<h:form id="deleteForm">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<p:message for="message" display="text" />
+				</div>
+				
+				<h:inputHidden id="csrf" value="#{groupController.codeSecureAction}" rendered="#{groupController.updateRandom}" />
+				
+				<p:panel>
+				
+					<h:outputLabel value="#{messages['are.you.sure']}" />
+					
+					<f:facet name="footer">
+						<p:commandButton icon="ui-icon-close" action="#{groupController.deleteCurrent}" process="@form" update=":form:tableData :globalMessages :displayDelete " value="#{messages['yes']}" />
+						<p:commandButton icon="ui-icon-home" onclick="deleteModal.hide();" process="@this" update=":form:tableData :globalMessages :displayDelete" value="#{messages['close']}"/>	
+					</f:facet>
+					
+				</p:panel>
+			</h:form>
+		</h:panelGroup>
+	</p:dialog>
+</html>

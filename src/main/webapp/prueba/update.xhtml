@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+	
+	<p:dialog header="#{messages['edit']}" widgetVar="updateModal" resizable="false" modal="true">		
+		<h:panelGroup id="displayUpdate" layout="block">		
+			<h:form id="editForm">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<p:message for="message" display="text" />
+				</div>
+				
+				<h:inputHidden id="csrf" value="#{pruebaController.codeSecureAction}" rendered="#{pruebaController.updateRandom}" />
+				
+				<p:panel>
+
+					<h:panelGrid columns="3" style="margin-bottom:5px" cellpadding="5">  	
+																					<h:outputLabel value="#{messages['prueba.fecha']}:" />
+																	<p:calendar showOn="button" id="fecha" value="#{pruebaController.current.fecha}" title="#{messages['prueba.fecha']}" />
+																<p:message for="fecha" display="icon" />
+																																									<h:outputLabel value="#{messages['prueba.nombre']}:" />
+																	<p:inputText id="nombre" value="#{pruebaController.current.nombre}" title="#{messages['prueba.nombre']}" />								
+																<p:message for="nombre" display="icon" />
+																												<h:outputLabel value="#{messages['prueba.numero']}:" />
+																	<p:inputText id="numero" value="#{pruebaController.current.numero}" title="#{messages['prueba.numero']}" />								
+																<p:message for="numero" display="icon" />
+																		</h:panelGrid>
+					
+					<f:facet name="footer">
+						<p:commandButton icon="ui-icon-arrowrefresh-1-w" action="#{pruebaController.updateCurrent}" process="@form" update=":form:tableData :globalMessages :displayUpdate" value="#{messages['update']}"  />
+						<p:commandButton icon="ui-icon-home" onclick="updateModal.hide()" process="@this" update=":form:tableData :globalMessages :displayUpdate" value="#{messages['close']}" />
+					</f:facet>
+					
+				</p:panel>
+			</h:form>	
+		</h:panelGroup>
+	</p:dialog>
+</html>

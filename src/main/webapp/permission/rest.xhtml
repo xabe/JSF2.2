@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+	<p:dialog  header="JAX-RS"  widgetVar="restModal" position="" resizable="false" modal="true" onShow="prettyPrint();">		
+		<h:panelGroup id="displayModal" layout="block">
+			<h:form>				
+				<p:panel>
+					
+					<f:facet name="header">
+						#{messages['header.rest']}
+					</f:facet>
+					
+					<p:tabView id="tabView">  
+						<p:tab id="tab1" title="XML">
+							<h:panelGrid columns="1">
+								<p:outputLabel value="#{root}rest/permission/limit/10/offset/0" />							
+								<pre id="xml">
+								</pre>	  
+							</h:panelGrid>
+						</p:tab>
+					
+						<p:tab id="tab2" title="JSON">  
+							<h:panelGrid columns="1">
+								<p:outputLabel value="#{root}rest/permission/limit/10/offset/0" />	
+								<pre id="json">
+								</pre>	
+							</h:panelGrid>	
+						</p:tab>
+						
+						<p:tab id="tab3" title="JSONP">  
+							<h:panelGrid columns="1">
+								<p:outputLabel value="#{root}rest/permission/limit/10/offset/0/jsonp" />	
+								<pre id="jsonp">
+								</pre>
+							</h:panelGrid>	
+						</p:tab>
+					
+					</p:tabView>	
+					<f:facet name="footer">
+						<p:commandButton icon="ui-icon-home" onclick="restModal.hide();" process="@this" update=":globalMessages :displayModal" value="#{messages['close']}"/>	
+					</f:facet>
+				</p:panel>
+			</h:form>
+		</h:panelGroup>
+	</p:dialog>
+</html>

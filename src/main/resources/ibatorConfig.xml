@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	
+	<context id="mysql" targetRuntime="MyBatis3" defaultModelType="conditional">
+  
+    <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+    <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+  
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/kodeengine" userId="root" password="root" />
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="com.prueba.model"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+	</javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="com.prueba.persistence.sql"
+			targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+	</sqlMapGenerator>
+
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.prueba.persistence"  targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+			<table tableName="t_prueba" domainObjectName="prueba.Prueba">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+		</table>
+			<table tableName="t_user" domainObjectName="user.User">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+		</table>
+			<table tableName="t_user_group" domainObjectName="usergroup.UserGroup">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+		</table>
+			<table tableName="t_group" domainObjectName="group.Group">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+		</table>
+			<table tableName="t_group_permission" domainObjectName="grouppermission.GroupPermission">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+		</table>
+			<table tableName="t_permission" domainObjectName="permission.Permission">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+		</table>
+			<table tableName="v_user_group" domainObjectName="vusergroup.VUserGroup">
+			<generatedKey column="" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+		</table>
+			<table tableName="v_group_permission" domainObjectName="vgrouppermission.VGroupPermission">
+			<generatedKey column="" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+		</table>
+			<table tableName="t_ws_history" domainObjectName="wshistory.WsHistory">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+		</table>
+		
+  </context>
+</generatorConfiguration>

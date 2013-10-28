@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<p:dialog header="#{messages['user.group.edit']}" widgetVar="userGroupModal" resizable="false" modal="true">	
+
+	<h:panelGroup id="displayUserGroup" layout="block">	
+		<h:form id="editFormUser">
+		
+			<div class="modalMessageContainer">
+				<h:inputHidden id="message" />
+				<p:message for="message" display="text" />
+			</div>
+			
+			<h:inputHidden id="csrf" value="#{userController.codeSecureAction}" rendered="#{userController.updateRandom}" />
+			
+			<p:panel>
+			
+				<f:facet name="header">
+					<h:outputFormat value="#{messages['message.Management.User']}">
+						<f:param value="#{userController.current.name}" />
+					</h:outputFormat>
+				</f:facet>
+				
+				<p:pickList id="result" value="#{userController.dualListModelGroup}" var="item" itemLabel="#{item.name}" converter="beanConverter" itemValue="#{item}" >
+					<f:facet name="sourceCaption">#{messages['user.groups']}</f:facet>  
+        			<f:facet name="targetCaption">#{messages['user.groups.select']}</f:facet>
+				</p:pickList>
+				
+				<f:facet name="footer">
+					<p:commandButton icon="ui-icon-close" action="#{userController.updateCurrentUserGroupView}" process="@form" update=":displayUserGroup :form:tableData :globalMessages" value="#{messages['update']}" />
+					<p:commandButton icon="ui-icon-home" onclick="userGroupModal.hide();" process="@this" update=":form:tableData :globalMessages :displayUserGroup" value="#{messages['close']}"/>	
+				</f:facet>
+									
+			</p:panel>
+		</h:form>
+	</h:panelGroup>
+</p:dialog>
+</html>

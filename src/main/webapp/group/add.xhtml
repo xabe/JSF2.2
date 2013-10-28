@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+
+	<p:dialog header="#{messages['new']}" widgetVar="newModal" resizable="false" modal="true">		
+		<h:panelGroup id="displayNew" layout="block">	
+			<h:form id="newForm">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<p:message for="message" display="text" />
+				</div>
+				
+				<h:inputHidden id="csrf" value="#{groupController.codeSecureAction}" rendered="#{groupController.updateRandom}" />
+				
+				<p:panel>
+				
+					<h:panelGrid columns="3" style="margin-bottom:5px" cellpadding="5">
+			
+						<h:outputLabel value="#{messages['group.name']}" />
+						<p:inputText  id="name" value="#{groupController.current.name}" size="40" title="#{messages['group.name']}" />
+						<p:message for="name" display="icon" />
+						
+					</h:panelGrid>
+					
+					<f:facet name="footer">  
+						<p:commandButton icon="ui-icon-disk" action="#{groupController.addCurrent}" process="@form" update=":displayNew :form:tableData :globalMessages" value="#{messages['create']}"  />
+						<p:commandButton icon="ui-icon-home" onclick="newModal.hide()" process="@this" update=":displayNew :form:tableData :globalMessages" value="#{messages['close']}" />
+    				</f:facet>
+				</p:panel>
+			</h:form>
+		</h:panelGroup>
+	</p:dialog>
+</html>

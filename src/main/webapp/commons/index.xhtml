@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="layout/layout.xhtml">
+	<ui:define name="headerPage">
+	</ui:define>
+	<ui:define name="title">
+	</ui:define>
+	<ui:param name="onLoadJS" value="" />
+	<ui:define name="content">		
+		
+		<h:panelGroup layout="block" rendered="#{sessionController.userLogged.validatePassword}">		
+			<h3>Hola</h3>
+		</h:panelGroup>
+		
+		<h:panelGroup id="displayChange" layout="block" rendered="#{!sessionController.userLogged.validatePassword}">
+			
+			<div class="row">
+				<div class="col-lg-7">
+					
+					<h:form id="formChangePassword" styleClass="form-signin">
+						
+						<h:inputHidden id="csrf" value="#{indexController.codeSecureAction}" rendered="#{indexController.updateRandom}" />
+						
+						<div class="header">
+							<h3>#{messages['change.password']}</h3>
+						</div>
+						
+						<div class="contentLogin">
+						
+							<div class="form-group">
+								<label>#{messages['change.password.old.password']}</label>
+								<div class="input-group">
+									<p:password id="old" value="#{indexController.oldPassword}" required="true" title="#{messages['change.password.old.password']}" placeholder="#{messages['change.password.old.password']}" styleClass="form-control" />	
+									<span class="input-required-group"><p:message for="old" display="icon" /></span>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label>#{messages['change.password.new.password']}</label>
+								<div class="input-group">
+									<p:password id="new" value="#{indexController.newPassword}" required="true" title="#{messages['change.password.new.password']}" placeholder="#{messages['change.password.new.password']}" styleClass="form-control" />	
+									<span class="input-required-group"><p:message for="new" display="icon" /></span>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label>#{messages['change.password.confirmation.password']}</label>
+								<div class="input-group">
+									<p:password id="renew" value="#{indexController.confirmationPassword}" required="true" title="#{messages['change.password.confirmation.password']}" placeholder="#{messages['change.password.confirmation.password']}" styleClass="form-control" />	
+									<span class="input-required-group"><p:message for="renew" display="icon" /></span>
+								</div>
+							</div>
+						
+						</div>
+						
+						<div class="actions">
+							<p:commandButton action="#{indexController.changePassword}"
+							 	update=":displayChange :globalMessages"
+							 	styleClass="btn btn-success"
+								value="#{messages['change.password.submit']}" >
+							</p:commandButton>
+							<p:commandButton value="#{messages['clean']}" styleClass="btn btn-default" update=":displayChange :globalMessages" process="@this">
+								<f:setPropertyActionListener value="" target="#{indexController.confirmationPassword}" />
+								<f:setPropertyActionListener value="" target="#{indexController.newPassword}" />
+								<f:setPropertyActionListener value="" target="#{indexController.oldPassword}" />
+								<p:resetInput target="@form" />
+							</p:commandButton>
+						</div>
+						
+					</h:form>
+				
+				</div>
+			</div>
+		</h:panelGroup>
+	</ui:define>
+	<ui:define name="modalPanels">
+	</ui:define>
+</ui:composition>
+</html>

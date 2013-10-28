@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">	
+	
+	<p:dialog header="#{messages['info']}" widgetVar="infoModal" resizable="false" modal="true">		
+		<h:panelGroup id="displayInfo" layout="block">		
+			<h:form id="infoForm">
+				<p:panel>		
+					<h:panelGrid columns="2" style="margin-bottom:5px" cellpadding="5">
+				
+					<h:outputLabel value="#{messages['user.name']}" />
+					<h:outputLabel id="name" value="#{userController.current.name}" />
+
+					<h:outputLabel value="#{messages['user.surname1']}" />
+					<h:outputLabel id="surname1" value="#{userController.current.surname1}" />
+
+					<h:outputLabel value="#{messages['user.surname2']}" />
+					<h:outputLabel id="surname2" value="#{userController.current.surname2}" />
+
+					<h:outputLabel value="#{messages['user.email']}" />
+					<h:outputLabel id="email" value="#{userController.current.email}" />
+
+					<h:outputLabel value="#{messages['user.blocked']}" />
+					<h:outputLabel value="#{userController.current.blocked == 1 ? messages['user.locked'] : messages['user.unlocked']}" />
+
+					<h:outputLabel value="#{messages['user.enable']}" />
+					<h:outputLabel value="#{userController.current.enable  == 1 ? messages['user.on'] : messages['user.off'] }" />
+
+					<h:outputLabel value="#{messages['user.username']}" />
+					<h:outputLabel id="username" value="#{userController.current.username}"  />
+
+					<h:outputLabel value="#{messages['user.telephone']}" />
+					<h:outputLabel id="telephone" value="#{userController.current.telephone}" />
+
+					<h:outputLabel value="#{messages['user.attempts.login']}" />
+					<h:outputLabel id="attemptsLogin" value="#{userController.current.attemptsLogin}" />
+				
+					<f:facet name="footer">
+						<p:commandButton icon="ui-icon-home" styleClass="button" onclick="infoModal.hide()" process="@this" update=":form:tableData :globalMessages :displayUpdate" value="#{messages['close']}" />
+					</f:facet>
+					
+					</h:panelGrid>
+				</p:panel>
+			</h:form>	
+		</h:panelGroup>
+	</p:dialog>
+</html>

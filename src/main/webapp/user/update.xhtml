@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html lang="#{sessionController.language}"  
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+	
+	<p:dialog header="#{messages['edit']}" widgetVar="updateModal" resizable="false" modal="true">		
+		<h:panelGroup id="displayUpdate" layout="block">		
+			<h:form id="editForm">
+			
+				<div class="modalMessageContainer">
+					<h:inputHidden id="message" />
+					<p:message for="message" display="text" />
+				</div>
+				
+				<h:inputHidden id="csrf" value="#{userController.codeSecureAction}" rendered="#{userController.updateRandom}" />
+			
+				<p:panel>
+
+					<h:panelGrid columns="3" style="margin-bottom:5px" cellpadding="5">
+				
+					<h:outputLabel value="#{messages['user.name']}" />
+					<p:inputText id="name" value="#{userController.current.name}" title="#{messages['user.name']}"  />
+					<p:message for="name" display="icon" />
+
+					<h:outputLabel value="#{messages['user.surname1']}" />
+					<p:inputText id="surname1" value="#{userController.current.surname1}" title="#{messages['user.surname1']}"  />
+					<p:message for="surname1" display="icon" />
+
+					<h:outputLabel value="#{messages['user.surname2']}" />
+					<p:inputText id="surname2" value="#{userController.current.surname2}" title="#{messages['user.surname2']}" />
+					<p:message for="surname2" display="icon" />
+
+					<h:outputLabel value="#{messages['user.email']}" />
+					<p:inputText id="email" value="#{userController.current.email}" title="#{messages['user.email']}"  />
+					<p:message for="email" display="icon" />
+
+					<h:outputLabel value="#{messages['user.blocked']}" />
+					<p:selectOneMenu id="blocked" value="#{userController.current.blocked}" title="#{messages['user.blocked']}">
+						<f:selectItem itemValue="0" itemLabel="#{messages['user.unlocked']}" />
+						<f:selectItem itemValue="1" itemLabel="#{messages['user.locked']}" />
+					</p:selectOneMenu>
+					<p:message for="blocked" display="icon" />
+
+					<h:outputLabel value="#{messages['user.enable']}" />
+					<p:selectOneMenu id="enable" value="#{userController.current.enable}" title="#{messages['user.enable']}">
+						<f:selectItem itemValue="1" itemLabel="#{messages['user.on']}" />
+						<f:selectItem itemValue="0" itemLabel="#{messages['user.off']}" />
+					</p:selectOneMenu>
+					<p:message for="enable" display="icon" />
+
+					<h:outputLabel value="#{messages['user.username']}" />
+					<p:inputText id="username" value="#{userController.current.username}" title="#{messages['user.username']}"  />
+					<p:message for="username" display="icon" />
+
+					<h:outputLabel value="#{messages['user.telephone']}" />
+					<p:inputText id="telephone" value="#{userController.current.telephone}" title="#{messages['user.telephone']}" />
+					<p:message for="telephone" display="icon" />
+
+					<h:outputLabel value="#{messages['user.attempts.login']}" />
+					<p:inputText id="attemptsLogin" value="#{userController.current.attemptsLogin}" title="#{messages['user.attempts.login']}" />
+					<p:message for="attemptsLogin" display="icon" />
+				
+				</h:panelGrid>
+				
+				<f:facet name="footer">
+					<p:commandButton icon="ui-icon-arrowrefresh-1-w" action="#{userController.updateCurrent}" process="@form" update=":form:tableData :globalMessages :displayUpdate" value="#{messages['update']}"  />
+					<p:commandButton icon="ui-icon-home" onclick="updateModal.hide()" process="@this" update=":form:tableData :globalMessages :displayUpdate" value="#{messages['close']}" />
+				</f:facet>
+					
+				</p:panel>
+			</h:form>	
+		</h:panelGroup>
+	</p:dialog>
+</html>
