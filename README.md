@@ -8,5 +8,5 @@ Si te interesa saber mas de java y programación no dudes en seguir mi blog:
 
 * [Mi blog](http://tirandolineasdecodigo.blogspot.com.es/)
 
-* [Ver proyecto] (http://jsf2-chmaad.rhcloud.com/)
+* [Ver proyecto] (http://tomcat7-chmaad.rhcloud.com/)
 
